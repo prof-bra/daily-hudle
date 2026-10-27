@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Daily Huddle – das Tagesrätsel der Styrian Studs</title>
+<meta name="description" content="Jeden Tag ein Sportmoment: Wann, wo, wer und wie viel? Das Tagesrätsel der Styrian Studs.">
+<meta property="og:title" content="Daily Huddle 🏈 Das Tagesrätsel der Styrian Studs">
+<meta property="og:description" content="Jeden Tag ein Sportmoment in vier Downs: Wann? Wo? Wer? Wie viel? Green Hearts can’t lose! 💚">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://prof-bra.github.io/daily-hudle/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://prof-bra.github.io/daily-hudle/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E7A3C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Graduate&family=Saira:wght@400;500;600;700&family=Saira+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF4F0; --surface:#FFFFFF; --ink:#0B2B1B; --muted:#4F6A5B; --line:#CFDDD4;
+  --studs:#0E7A3C; --on-studs:#FFFFFF; --gold:#F1B82D; --on-gold:#2A1E00; --bad:#C7362F;
+  --sea:#DCEBF0; --land:#CFDCCF; --land-hi:#A9C9AE; --land-sel:#F1B82D; --land-stroke:#FFFFFF;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#08150F; --surface:#11231A; --ink:#E5F0E9; --muted:#93AE9F; --line:#24402F;
+    --studs:#1F9B53; --gold:#F5C443; --bad:#FF6B61;
+    --sea:#0E2230; --land:#2A4236; --land-hi:#3E6450; --land-sel:#C99A22; --land-stroke:#0E2230; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#08150F; --surface:#11231A; --ink:#E5F0E9; --muted:#93AE9F; --line:#24402F;
+  --studs:#1F9B53; --gold:#F5C443; --bad:#FF6B61;
+  --sea:#0E2230; --land:#2A4236; --land-hi:#3E6450; --land-sel:#C99A22; --land-stroke:#0E2230; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Saira",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16.5px;line-height:1.5;overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+.hero{position:relative;overflow:hidden;color:var(--on-studs);
+  background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 2px),rgba(255,255,255,.16) calc(10% - 2px) 10%),
+  linear-gradient(160deg,#13914A 0%,#0E7A3C 45%,#08502A 100%)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(90deg,#fff 0 14px,transparent 14px 28px);opacity:.5}
+.hero-in{max-width:620px;margin:0 auto;padding:18px 16px 26px;display:flex;gap:14px;align-items:center}
+.hero-txt{flex:1;min-width:0}
+.club{margin:0 0 6px;font-weight:600;font-size:.88rem;opacity:.92}
+.word{font-family:"Graduate",Georgia,serif;font-weight:400;font-size:clamp(2.1rem,10.5vw,3.4rem);line-height:.95;margin:0;letter-spacing:.01em;text-shadow:0 3px 0 rgba(0,0,0,.22)}
+.motto{display:inline-block;margin-top:12px;background:var(--gold);color:var(--on-gold);font-weight:700;font-size:.9rem;padding:4px 11px;border-radius:4px}
+.jersey{flex:0 0 auto;width:min(30vw,132px);filter:drop-shadow(0 5px 0 rgba(0,0,0,.2))}
+.jersey text{font-family:"Graduate",Georgia,serif}
+
+.wrap{max-width:620px;margin:0 auto;padding:16px 16px 56px}
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px;margin-bottom:18px}
+.tabs button{flex:1;border:0;background:transparent;padding:9px 6px;border-radius:9px;font-weight:600;font-size:.95rem;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--studs);color:var(--on-studs)}
+.view[hidden]{display:none}
+.daybar{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:12px}
+.daybar h2{font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:1.75rem;line-height:1.05;margin:0}
+.daybar p{margin:0;color:var(--muted);font-size:.9rem}
+.trikot{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-weight:600;font-size:.88rem;white-space:nowrap}
+.intro{margin:0 0 14px;color:var(--muted)}
+.banner{background:var(--surface);border-left:4px solid var(--gold);padding:10px 14px;border-radius:0 8px 8px 0;margin-bottom:14px;font-size:.95rem}
+
+/* Spielzug-Karte */
+.play{background:var(--studs);color:var(--on-studs);border-radius:4px 18px 4px 18px;padding:18px 18px 20px;margin-bottom:22px}
+.play .kick{font-family:"Saira Condensed",sans-serif;font-weight:700;font-size:1rem;opacity:.85;margin:0}
+.play h3{font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:1.7rem;line-height:1.05;margin:2px 0 10px}
+.play p.story{margin:0;font-size:1.04rem;line-height:1.55}
+
+.step{margin-bottom:26px}
+.step[hidden]{display:none}
+.step h4{font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:1.45rem;line-height:1.1;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.step h4 .dn{flex:none;font-size:.95rem;padding:3px 9px;border-radius:6px;background:var(--gold);color:var(--on-gold)}
+.step.done h4 .dn{background:var(--studs);color:var(--on-studs)}
+
+.yearpick{display:flex;align-items:center;justify-content:center;gap:16px;margin:4px 0 6px}
+#ho{font-family:"Graduate",Georgia,serif;font-size:clamp(2.2rem,11vw,3.2rem);line-height:1;font-variant-numeric:tabular-nums}
+.yearpick output{font-family:"Graduate",Georgia,serif;font-size:3.6rem;line-height:1;min-width:4.4ch;text-align:center;font-variant-numeric:tabular-nums}
+.round{width:50px;height:50px;border-radius:50%;border:2px solid var(--line);background:var(--surface);font-size:1.5rem;line-height:1}
+.round:disabled{opacity:.35}
+input[type=range]{width:100%;accent-color:var(--studs);margin:8px 0 14px}
+.btn{display:block;width:100%;border:0;border-radius:10px;padding:13px 14px;font-family:"Saira Condensed",sans-serif;font-weight:700;font-size:1.2rem;background:var(--ink);color:var(--bg)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.row{display:flex;gap:8px}.row .btn{flex:1}
+.fb{margin-top:12px;padding:11px 14px;border-left:4px solid var(--studs);background:var(--surface);border-radius:0 8px 8px 0}
+.fb[hidden]{display:none}
+.fb .pts{font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:1.25rem;color:var(--studs)}
+
+/* Karte: volle Breite */
+.mapbox{--sea:#A8D5EC;--land:#F4F1E6;--land-hi:#E4DDC5;--land-sel:#F6CB4F;--land-stroke:#A39C88;position:relative;width:min(100vw,900px);left:50%;transform:translateX(-50%);background:var(--sea);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:12px}
+@media (min-width:640px){.mapbox{border:1px solid var(--line);border-radius:12px;overflow:hidden}}
+#map{display:block;width:100%;height:auto;touch-action:none;cursor:crosshair;overflow:hidden}
+#map .sea{fill:var(--sea)}
+#map .grat{fill:none;stroke:#FFFFFF;stroke-width:.6;opacity:.45;vector-effect:non-scaling-stroke}
+#map .land{fill:var(--land);stroke:var(--land-stroke);stroke-width:.7;vector-effect:non-scaling-stroke}
+#map .land.hover{fill:var(--land-hi)}
+#map .land.sel{fill:var(--land-sel)}
+#map .lake{fill:var(--sea);stroke:#7FB6D3;stroke-width:.5;vector-effect:non-scaling-stroke;pointer-events:none}
+#map .river{fill:none;stroke:#6AAFD6;stroke-width:1.1;vector-effect:non-scaling-stroke;pointer-events:none}
+#map .city{fill:#6B6352;stroke:#FFFFFF;pointer-events:none}
+#map .arc{fill:none;stroke:#0B2B1B;stroke-width:2.5;stroke-dasharray:6 5;vector-effect:non-scaling-stroke}
+#map .pin-guess{fill:#F1B82D;stroke:#0B2B1B}
+#map .pin-truth{fill:var(--bad);stroke:#fff}
+.chip{position:absolute;left:10px;top:10px;max-width:calc(100% - 70px);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;font-weight:600;font-size:.92rem;box-shadow:0 2px 0 rgba(0,0,0,.12);pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip:empty{display:none}
+.zoom{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
+.zoom button{width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:1.3rem;line-height:1}
+.maphint{margin:-4px 0 10px;color:var(--muted);font-size:.92rem}
+.rule{margin:-6px 0 12px;color:var(--muted);font-size:.9rem}
+.legend{display:flex;gap:16px;font-size:.88rem;color:var(--muted);margin:-4px 0 10px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.legend[hidden]{display:none}
+.maperr{padding:40px 16px;text-align:center;color:var(--muted)}
+
+/* Wer */
+.whoq{margin:0 0 10px;font-weight:600}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{border:0;border-radius:10px;padding:12px 10px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);font-weight:600;text-align:left;line-height:1.25}
+.opt.wrong{background:transparent;text-decoration:line-through;color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad);opacity:.75}
+.opt.right{background:var(--studs);color:var(--on-studs);box-shadow:none}
+
+/* Auflösung */
+.reveal h3{font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:1.6rem;line-height:1.1;margin:0 0 4px}
+.reveal .where{color:var(--muted);margin:0 0 12px}
+.facts{list-style:none;margin:0 0 16px;padding:0}
+.facts li{position:relative;padding:11px 14px 11px 42px;background:var(--surface);border-radius:8px;margin-bottom:8px}
+.facts li::before{content:"🏈";position:absolute;left:13px;top:10px;font-size:1rem}
+.result{background:var(--studs);color:var(--on-studs);border-radius:14px;padding:18px}
+.result .tot{font-family:"Graduate",Georgia,serif;font-size:3.2rem;line-height:1}
+.result .tot small{font-family:"Saira",sans-serif;font-size:1rem;opacity:.85}
+.result .lab{font-family:"Saira Condensed",sans-serif;font-weight:700;font-size:1.35rem;margin:4px 0 10px}
+.result table{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:.95rem}
+.result td{padding:5px 0;border-top:1px solid rgba(255,255,255,.25)}
+.result td:last-child{text-align:right;font-weight:700}
+.result .btn{background:#fff;color:#08502A}
+.send{margin:0 0 12px;font-size:.95rem;font-weight:600}
+.mini{margin-top:16px}
+.mini h5{font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:1.35rem;margin:0 0 8px}
+.mini .gap{text-align:center;color:var(--muted);margin:2px 0 6px}
+.send:empty{display:none}
+.send .trikot{color:#0B2B1B;margin-left:6px}
+.result .btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
+
+/* Bestenlisten */
+.lb-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px}
+.lb-head h2{font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:1.6rem;margin:0}
+.lb-head span{color:var(--muted);font-size:.9rem}
+.lb{list-style:none;margin:0;padding:0}
+.lb li{display:grid;grid-template-columns:2.2rem 1fr auto;align-items:center;gap:10px;background:var(--surface);border-radius:10px;padding:10px 12px;margin-bottom:6px}
+.lb li.me{box-shadow:inset 0 0 0 2px var(--gold)}
+.lb .rk{font-family:"Graduate",Georgia,serif;font-size:1.15rem;text-align:center}
+.lb li:nth-child(1) .rk{color:var(--gold)}
+.lb .nm{font-weight:600;line-height:1.2;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.lb .nm small{display:block;font-weight:400;color:var(--muted);font-size:.82rem}
+.lb .sc{text-align:right;font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:1.3rem;line-height:1.1}
+.lb .sc small{display:block;font-family:"Saira",sans-serif;font-weight:400;font-size:.78rem;color:var(--muted)}
+.empty{background:var(--surface);border-radius:10px;padding:18px;color:var(--muted);text-align:center}
+.daysel{font:inherit;font-weight:600;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.stand{margin:-4px 0 12px;color:var(--muted);font-size:.88rem}
+.keeper{margin-top:24px;background:var(--surface);border-radius:12px;padding:12px 14px;box-shadow:inset 0 0 0 2px var(--gold)}
+.keeper summary{cursor:pointer;font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:1.25rem}
+.keeper p{margin:8px 0;font-size:.92rem;color:var(--muted)}
+.keeper textarea{width:100%;min-height:120px;font:inherit;font-size:.9rem;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);margin-bottom:8px}
+.krep,.klist{list-style:none;margin:8px 0 0;padding:0;font-size:.92rem}
+.krep li{padding:4px 0;border-bottom:1px solid var(--line)}
+.klist{display:flex;flex-wrap:wrap;gap:6px}
+.klist button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:4px 10px;font-size:.85rem}
+.klist button.gone{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.practice{display:grid;gap:8px;margin-top:8px}
+.practice button{text-align:left;border:0;border-radius:10px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);padding:12px 14px}
+.practice b{display:block;font-family:"Saira Condensed",sans-serif;font-size:1.15rem}
+.practice span{color:var(--muted);font-size:.9rem}
+.admin{margin-top:22px;padding-top:14px;border-top:1px dashed var(--line);font-size:.9rem;color:var(--muted)}
+.admin select{font:inherit;padding:6px;border-radius:6px;background:var(--surface);color:var(--ink);border:1px solid var(--line);max-width:100%}
+
+dialog{border:0;border-radius:14px;padding:20px;max-width:360px;width:calc(100% - 32px);background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(0,20,10,.55)}
+dialog h3{font-family:"Saira Condensed",sans-serif;font-weight:800;font-size:1.5rem;margin:0 0 6px}
+dialog label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
+dialog input{width:100%;font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-in">
+    <div class="hero-txt">
+      <p class="club">Das Tagesrätsel der Styrian Studs 💚</p>
+      <h1 class="word">Daily<br>Huddle</h1>
+      <span class="motto" id="motto">November: Road to LA28</span>
+    </div>
+    <svg class="jersey" viewBox="0 0 120 130" aria-hidden="true">
+      <path d="M38 6 L18 12 L2 40 L20 52 L28 40 L28 124 L92 124 L92 40 L100 52 L118 40 L102 12 L82 6 Q60 22 38 6 Z" fill="#fff"/>
+      <path d="M38 6 Q60 22 82 6" fill="none" stroke="#0E7A3C" stroke-width="5"/>
+      <rect x="28" y="104" width="64" height="7" fill="#F1B82D"/>
+      <text id="jerseyNum" x="60" y="92" text-anchor="middle" font-size="46" fill="#0E7A3C">1</text>
+    </svg>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-v="play">Rätsel</button>
+    <button role="tab" aria-selected="false" data-v="today">Heute</button>
+    <button role="tab" aria-selected="false" data-v="month">MVP-Race</button>
+  </nav>
+
+  <section class="view" id="v-play">
+    <div class="daybar">
+      <div><p id="dateLine"></p><h2 id="dayTitle">Spielzug des Tages</h2></div>
+      <button class="trikot" id="trikotBtn">Dein Trikot</button>
+    </div>
+    <div id="playArea"></div>
+  </section>
+
+  <section class="view" id="v-today" hidden>
+    <div class="lb-head"><h2>Play of the Day</h2><select id="daySel" class="daysel" aria-label="Tag wählen"></select></div>
+    <p class="stand" id="stand1"></p>
+    <div id="todayBoard"></div>
+  </section>
+
+  <section class="view" id="v-month" hidden>
+    <div class="lb-head"><h2>MVP-Race</h2><span id="monthLabel"></span></div>
+    <p class="stand" id="stand2"></p>
+    <div id="monthBoard"></div>
+  </section>
+</div>
+
+<dialog id="dlg">
+  <h3>Dein Trikot</h3>
+  <p style="margin:0;color:var(--muted);font-size:.92rem">Deine Rückennummer ist deine Erkennung in der Wertung – bitte immer dieselbe verwenden.</p>
+  <label for="nickIn">Spitzname</label>
+  <input id="nickIn" maxlength="18" autocomplete="nickname">
+  <label for="numIn">Rückennummer</label>
+  <input id="numIn" inputmode="numeric" maxlength="2">
+  <div class="row" style="margin-top:16px"><button class="btn ghost" id="dlgCancel">Abbrechen</button><button class="btn" id="dlgSave">Speichern</button></div>
+</dialog>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.min.js"></script>
+<script>
+// >>> Hier die Adresse des Google-Skripts eintragen (endet auf /exec) <<<
+const API_URL="https://script.google.com/macros/s/AKfycbzm5bqTYPRBSuv6tt9zP1q3wT7qqV2H8BdO0rGmv0Jv_i5hi4IG0Ojc8hhH03_77jbF/exec";
+const GAME_URL=location.origin+location.pathname.replace(/index\.html$/,"");
+const apiReady=()=>/^https:\/\/script\.google\.com\//.test(API_URL);
+const MONTHS_CFG={"2026-11":{motto:"Road to LA28",intro:"2028 ist Flag Football erstmals olympisch. Im November erwartet dich jeden Tag ein großer Moment aus Olympia und Football."}};
+
+// ===================== Spielzüge November =====================
+const EVENTS=[
+ {y:2023,sport:"Olympia",title:"Flag Football wird olympisch",
+  story:"Bei einer Sitzung in einer riesigen Metropole stimmen die Mitglieder einer mächtigen Sportorganisation ab: Mehrere Sportarten kommen neu ins Programm der übernächsten Sommerspiele – darunter euer Sport.",
+  place:"Jio World Centre, Mumbai, Indien",lat:19.0650,lng:72.8650,
+  q:"Wer hat die Entscheidung getroffen?",a:"Das IOC",o:["Das IOC","Die NFL","Die FIFA","Der Weltverband IFAF"],
+  facts:["Mit Flag Football kamen auch Cricket, Lacrosse, Squash sowie Baseball und Softball ins Programm von LA28.","Bei den Spielen 2028 gibt es ein Turnier für Frauen und eines für Männer."]},
+ {y:1984,sport:"Olympia",title:"Carl Lewis holt viermal Gold",
+  story:"Bei Sommerspielen, die mehrere Staaten boykottieren, gewinnt ein Leichtathlet viermal Gold – in genau denselben Disziplinen wie eine Legende fast 50 Jahre zuvor.",
+  place:"Los Angeles Memorial Coliseum, Los Angeles, USA",lat:34.0141,lng:-118.2879,
+  q:"Wer gewann die vier Goldmedaillen?",a:"Carl Lewis",o:["Carl Lewis","Edwin Moses","Michael Johnson","Ben Johnson"],
+  facts:["Carl Lewis siegte über 100 m, 200 m, im Weitsprung und mit der 4×100-m-Staffel – wie Jesse Owens 1936.","Das Coliseum wird 2028 zum dritten Mal Olympiastadion sein."]},
+ {y:1967,sport:"American Football",title:"Der Ice Bowl",
+  story:"Ein Meisterschaftsspiel findet bei rund minus 25 Grad statt, die Rasenheizung versagt. Kurz vor Schluss entscheidet ein Quarterback das Spiel mit einem Lauf durch die Mitte.",
+  place:"Lambeau Field, Green Bay, Wisconsin, USA",lat:44.5013,lng:-88.0622,
+  q:"Wer erzielte den Siegtouchdown?",a:"Bart Starr",o:["Bart Starr","Johnny Unitas","Joe Namath","Roger Staubach"],
+  facts:["Die Green Bay Packers schlugen die Dallas Cowboys und zogen in den zweiten Super Bowl ein.","Das Spielfeld fror so hart, dass es sich eher wie Beton anfühlte."]},
+ {y:1954,sport:"Fußball",title:"Das Wunder von Bern",
+  story:"Ein klarer Außenseiter gewinnt im Regen ein WM-Finale gegen eine Mannschaft, die seit über vier Jahren ungeschlagen war – und gegen die er in der Vorrunde noch 3:8 verloren hatte.",
+  place:"Wankdorfstadion, Bern, Schweiz",lat:46.9631,lng:7.4646,
+  q:"Wer schoss das Siegtor zum 3:2?",a:"Helmut Rahn",o:["Helmut Rahn","Fritz Walter","Max Morlock","Ferenc Puskás"],
+  facts:["Die Bundesrepublik Deutschland schlug Ungarn, Rahn traf in der 84. Minute.","Kapitän Fritz Walter spielte am liebsten bei Regen – seither spricht man vom „Fritz-Walter-Wetter“."]},
+ {y:1976,sport:"Olympia",title:"Die perfekte Zehn",
+  story:"Eine 14-jährige Turnerin erhält als Erste die Höchstnote 10,0 bei Olympischen Spielen. Die Anzeigetafel ist dafür nicht ausgelegt und zeigt 1,00.",
+  place:"Forum de Montréal, Montreal, Kanada",lat:45.4898,lng:-73.5882,
+  q:"Wer turnte die perfekte Übung?",a:"Nadia Comăneci",o:["Nadia Comăneci","Olga Korbut","Nellie Kim","Simone Biles"],
+  facts:["Comăneci aus Rumänien bekam bei diesen Spielen insgesamt siebenmal die 10,0.","Sie gewann drei Goldmedaillen, darunter den Mehrkampf."]},
+ {y:1982,sport:"American Football",title:"The Catch",
+  story:"Im Halbfinale der NFL wirft ein junger Quarterback unter Druck einen hohen Pass ans Ende der Endzone. Ein Receiver springt hoch und fängt ihn mit den Fingerspitzen – Touchdown.",
+  place:"Candlestick Park, San Francisco, USA",lat:37.7136,lng:-122.3863,
+  q:"Wer fing den Pass?",a:"Dwight Clark",o:["Dwight Clark","Jerry Rice","Lynn Swann","Roger Craig"],
+  facts:["Den Pass warf Joe Montana, die 49ers schlugen die Dallas Cowboys.","Wenige Wochen später gewann San Francisco seinen ersten Super Bowl."]},
+ {y:1976,sport:"Olympia",title:"Franz Klammers Höllenritt",
+  story:"Bei Winterspielen im eigenen Land rast der große Favorit am absoluten Limit die Abfahrt hinunter – mehrmals scheint er zu stürzen – und gewinnt Gold.",
+  place:"Patscherkofel, Igls bei Innsbruck, Österreich",lat:47.2087,lng:11.4600,
+  q:"Wer gewann die Abfahrt?",a:"Franz Klammer",o:["Franz Klammer","Karl Schranz","Toni Sailer","Bernhard Russi"],
+  facts:["Klammer siegte mit 0,33 Sekunden Vorsprung auf den Schweizer Bernhard Russi.","Die Fahrt gilt in Österreich bis heute als einer der größten Sportmomente des Landes."]},
+ {y:1936,sport:"Olympia",title:"Jesse Owens’ vier Goldmedaillen",
+  story:"Ein Leichtathlet gewinnt bei Sommerspielen viermal Gold – vor den Augen eines Diktators, der die Spiele für seine Propaganda nutzen wollte.",
+  place:"Olympiastadion, Berlin, Deutschland",lat:52.5147,lng:13.2395,
+  q:"Wer gewann die vier Goldmedaillen?",a:"Jesse Owens",o:["Jesse Owens","Ralph Metcalfe","Eddie Tolan","Carl Lewis"],
+  facts:["Owens siegte über 100 m, 200 m, im Weitsprung und mit der Staffel.","Mit dem deutschen Weitspringer Luz Long verband ihn danach eine Freundschaft."]},
+ {y:2008,sport:"American Football",title:"Der Helmet Catch",
+  story:"Im Super Bowl steht ein bis dahin ungeschlagenes Team kurz vor der perfekten Saison. Dann fängt ein Receiver einen Verzweiflungspass, indem er den Ball gegen seinen Helm presst.",
+  place:"University of Phoenix Stadium, Glendale, Arizona, USA",lat:33.5276,lng:-112.2626,
+  q:"Wer fing den Ball am Helm?",a:"David Tyree",o:["David Tyree","Plaxico Burress","Eli Manning","Wes Welker"],
+  facts:["Die New York Giants schlugen die New England Patriots mit 17:14.","Für Tyree war es einer von ganz wenigen Fängen in der gesamten Saison."]},
+ {y:1992,sport:"Olympia",title:"Das Dream Team",
+  story:"Erstmals dürfen Profis aus der besten Basketball-Liga der Welt bei Olympia antreten. Ihr Team gewinnt jedes Spiel mit großem Abstand und wird weltweit gefeiert.",
+  place:"Palau d’Esports de Badalona, Barcelona, Spanien",lat:41.4435,lng:2.2346,
+  q:"Wer spielte im Dream Team?",a:"Michael Jordan",o:["Michael Jordan","Kobe Bryant","LeBron James","Shaquille O’Neal"],
+  facts:["Im Schnitt gewannen die USA ihre Spiele mit über 40 Punkten Vorsprung.","Einziger College-Spieler im Kader war Christian Laettner."]},
+ {y:1966,sport:"Fußball",title:"Das Wembley-Tor",
+  story:"In der Verlängerung eines WM-Finales prallt ein Schuss von der Unterkante der Latte auf den Boden. Der Schiedsrichter gibt das Tor nach Rücksprache mit seinem Linienrichter – darüber wird bis heute gestritten.",
+  place:"Wembley-Stadion, London, England",lat:51.5560,lng:-0.2796,
+  q:"Wer erzielte das umstrittene Tor?",a:"Geoff Hurst",o:["Geoff Hurst","Bobby Charlton","Bobby Moore","Uwe Seeler"],
+  facts:["England schlug die Bundesrepublik Deutschland mit 4:2 nach Verlängerung; Hurst traf dreimal.","Linienrichter Tofiq Bahramov stammte aus Baku – das dortige Nationalstadion trägt heute seinen Namen."]},
+ {y:2008,sport:"Olympia",title:"Weltrekord mit offenem Schuh",
+  story:"Ein Sprinter verbessert den 100-m-Weltrekord, obwohl er schon vor dem Ziel jubelt und abbremst. Hinterher fällt auf: Sein Schnürsenkel war offen.",
+  place:"Nationalstadion („Vogelnest“), Peking, China",lat:39.9917,lng:116.3906,
+  q:"Wer lief den Weltrekord?",a:"Usain Bolt",o:["Usain Bolt","Asafa Powell","Tyson Gay","Yohan Blake"],
+  facts:["Bolt lief 9,69 Sekunden.","Wenige Tage später holte er auch über 200 m Gold mit Weltrekord."]},
+ {y:1972,sport:"American Football",title:"Die Immaculate Reception",
+  story:"In den letzten Sekunden eines Playoff-Spiels prallt ein verzweifelter Pass von einem Gegenspieler ab. Ein Running Back fängt den Ball knapp über dem Boden und läuft zum Siegtouchdown.",
+  place:"Three Rivers Stadium, Pittsburgh, Pennsylvania, USA",lat:40.4467,lng:-80.0158,
+  q:"Wer fing den abgefälschten Ball?",a:"Franco Harris",o:["Franco Harris","Terry Bradshaw","Lynn Swann","Jack Tatum"],
+  facts:["Die Pittsburgh Steelers schlugen damit die Oakland Raiders.","Es war der erste Playoff-Sieg in der Geschichte der Steelers."]},
+ {y:1988,sport:"Olympia",title:"Eddie the Eagle",
+  story:"Ein Skispringer ohne jede Medaillenchance wird bei Winterspielen zum Liebling des Publikums – obwohl er abgeschlagen Letzter wird.",
+  place:"Canada Olympic Park, Calgary, Kanada",lat:51.0830,lng:-114.2140,
+  q:"Wer war der Publikumsliebling?",a:"Michael „Eddie“ Edwards",o:["Michael „Eddie“ Edwards","Matti Nykänen","Jens Weißflog","Andreas Goldberger"],
+  facts:["Edwards war der erste Brite seit 1928 bei einem olympischen Skispringen.","Gold holte bei diesen Spielen gleich dreimal der Finne Matti Nykänen."]},
+ {y:1952,sport:"Olympia",title:"Zátopeks Triple",
+  story:"Ein Langstreckenläufer gewinnt bei denselben Sommerspielen Gold über 5.000 m, 10.000 m und im Marathon – dabei läuft er seinen allerersten Marathon überhaupt.",
+  place:"Olympiastadion, Helsinki, Finnland",lat:60.1870,lng:24.9270,
+  q:"Wer schaffte das Triple?",a:"Emil Zátopek",o:["Emil Zátopek","Paavo Nurmi","Abebe Bikila","Lasse Virén"],
+  facts:["Am Tag seines 5.000-m-Siegs gewann auch seine Frau Dana Gold – im Speerwurf.","Wegen seines Laufstils nannte man den Tschechen die „Lokomotive“."]},
+ {y:2014,sport:"Fußball",title:"Der vierte Stern",
+  story:"In der 113. Minute eines WM-Finales nimmt ein Einwechselspieler eine Flanke mit der Brust an und trifft volley zum einzigen Tor des Spiels.",
+  place:"Maracanã, Rio de Janeiro, Brasilien",lat:-22.9122,lng:-43.2302,
+  q:"Wer schoss das Tor?",a:"Mario Götze",o:["Mario Götze","André Schürrle","Thomas Müller","Miroslav Klose"],
+  facts:["Deutschland schlug Argentinien 1:0 nach Verlängerung.","Es war der erste WM-Titel einer europäischen Mannschaft in Südamerika."]},
+ {y:1972,sport:"Olympia",title:"Sieben Goldmedaillen",
+  story:"Ein Schwimmer mit markantem Schnurrbart gewinnt bei denselben Sommerspielen sieben Goldmedaillen – jede einzelne mit Weltrekord.",
+  place:"Olympia-Schwimmhalle, München, Deutschland",lat:48.1755,lng:11.5520,
+  q:"Wer gewann die sieben Goldmedaillen?",a:"Mark Spitz",o:["Mark Spitz","Michael Phelps","Matt Biondi","Don Schollander"],
+  facts:["Der Rekord von Mark Spitz hielt 36 Jahre, bis Michael Phelps 2008 achtmal Gold holte.","Spitz soll gescherzt haben, sein Schnurrbart mache ihn im Wasser schneller."]},
+ {y:2018,sport:"American Football",title:"Philly Special",
+  story:"Im Super Bowl wagt ein Team kurz vor der Halbzeit einen Trickspielzug: Der Ball geht über Umwege – und der Quarterback selbst fängt in der Endzone den Touchdown-Pass.",
+  place:"U.S. Bank Stadium, Minneapolis, USA",lat:44.9736,lng:-93.2575,
+  q:"Welcher Quarterback fing den Touchdown?",a:"Nick Foles",o:["Nick Foles","Carson Wentz","Tom Brady","Zach Ertz"],
+  facts:["Foles war eigentlich Ersatz-Quarterback und kam nur wegen einer Verletzung von Carson Wentz zum Einsatz.","Die Philadelphia Eagles schlugen die New England Patriots 41:33 und gewannen ihren ersten Super Bowl."]},
+ {y:1960,sport:"Olympia",title:"Barfuß zum Marathon-Gold",
+  story:"Ein Läufer aus Ostafrika gewinnt den olympischen Marathon – barfuß. Das Ziel liegt nachts an einem antiken Triumphbogen.",
+  place:"Konstantinsbogen, Rom, Italien",lat:41.8898,lng:12.4906,
+  q:"Wer gewann barfuß?",a:"Abebe Bikila",o:["Abebe Bikila","Emil Zátopek","Haile Gebrselassie","Kipchoge Keino"],
+  facts:["Der Äthiopier Bikila war der erste Afrikaner südlich der Sahara mit olympischem Gold.","Vier Jahre später gewann er den Marathon erneut – diesmal mit Schuhen."]},
+ {y:1998,sport:"Olympia",title:"Der Herminator fliegt",
+  story:"Ein Skirennläufer hebt in der olympischen Abfahrt ab, fliegt meterweit durch die Luft und durchschlägt zwei Fangzäune. Wenige Tage später gewinnt er Gold.",
+  place:"Happo One, Hakuba, Japan",lat:36.6983,lng:137.8617,
+  q:"Wer stürzte und siegte danach?",a:"Hermann Maier",o:["Hermann Maier","Stephan Eberharter","Kjetil André Aamodt","Alberto Tomba"],
+  facts:["Hermann Maier gewann danach Gold im Super-G und im Riesenslalom.","Die Bilder des Sturzes gingen um die Welt."]},
+ {y:1986,sport:"Fußball",title:"Hand Gottes und Tor des Jahrhunderts",
+  story:"In einem WM-Viertelfinale erzielt ein Spieler innerhalb von vier Minuten zwei der berühmtesten Tore der Geschichte – eines mit der Hand, eines nach einem Solo über das halbe Feld.",
+  place:"Estadio Azteca, Mexiko-Stadt, Mexiko",lat:19.3029,lng:-99.1505,
+  q:"Wer erzielte die beiden Tore?",a:"Diego Maradona",o:["Diego Maradona","Pelé","Mario Kempes","Gabriel Batistuta"],
+  facts:["Argentinien gewann 2:1 gegen England und wurde später Weltmeister.","Das Solo wurde 2002 in einer FIFA-Umfrage zum Tor des Jahrhunderts gewählt."]},
+ {y:2000,sport:"Olympia",title:"Cathy Freemans Lauf",
+  story:"Eine Läuferin, die bei der Eröffnungsfeier das olympische Feuer entzündet hat, gewinnt im Ganzkörperanzug Gold über 400 Meter – vor über 110.000 Zuschauern im eigenen Land.",
+  place:"Stadium Australia, Sydney, Australien",lat:-33.8470,lng:151.0634,
+  q:"Wer gewann die 400 m?",a:"Cathy Freeman",o:["Cathy Freeman","Marie-José Pérec","Allyson Felix","Florence Griffith-Joyner"],
+  facts:["Freeman lief ihre Ehrenrunde mit der australischen und der Aborigines-Flagge.","Der Lauf gilt als einer der bewegendsten Momente des australischen Sports."]},
+ {y:2017,sport:"American Football",title:"Das Comeback von 28:3",
+  story:"Im Super Bowl liegt ein Team im dritten Viertel mit 3:28 zurück – und gewinnt trotzdem, in der ersten Verlängerung der Super-Bowl-Geschichte.",
+  place:"NRG Stadium, Houston, Texas, USA",lat:29.6847,lng:-95.4107,
+  q:"Wer führte das Comeback als Quarterback an?",a:"Tom Brady",o:["Tom Brady","Matt Ryan","Peyton Manning","Drew Brees"],
+  facts:["Die New England Patriots schlugen die Atlanta Falcons.","Brady gewann damit seinen fünften von insgesamt sieben Super Bowls."]},
+ {y:1968,sport:"Olympia",title:"Der Jahrhundertsprung",
+  story:"Ein Weitspringer fliegt so weit, dass die optische Messanlage nicht ausreicht und mit dem Maßband nachgemessen werden muss. Er verbessert den Weltrekord um 55 Zentimeter.",
+  place:"Estadio Olímpico Universitario, Mexiko-Stadt, Mexiko",lat:19.3317,lng:-99.1922,
+  q:"Wer sprang den Weltrekord?",a:"Bob Beamon",o:["Bob Beamon","Mike Powell","Ralph Boston","Carl Lewis"],
+  facts:["Beamons 8,90 m hielten fast 23 Jahre, bis Mike Powell 1991 8,95 m sprang.","Die dünne Höhenluft begünstigte Sprung- und Sprintwettbewerbe."]},
+ {y:1932,sport:"Olympia",title:"Babe Didrikson",
+  story:"Eine Athletin gewinnt bei Sommerspielen Gold im Speerwurf und über 80 m Hürden und Silber im Hochsprung. Später wird sie auch noch eine der besten Golferinnen der Welt.",
+  place:"Los Angeles Memorial Coliseum, Los Angeles, USA",lat:34.0141,lng:-118.2879,
+  q:"Wer war die Allrounderin?",a:"Babe Didrikson",o:["Babe Didrikson","Fanny Blankers-Koen","Wilma Rudolph","Jackie Joyner-Kersee"],
+  facts:["Es waren die ersten Olympischen Spiele in Los Angeles – 2028 sind es die dritten.","Mit Golf gewann Didrikson später zehn Major-Titel."]},
+ {y:1980,sport:"Olympia",title:"Miracle on Ice",
+  story:"Eine Mannschaft aus College-Spielern schlägt bei Winterspielen den haushohen Favoriten, der die vier vorherigen olympischen Eishockeyturniere gewonnen hatte.",
+  place:"Olympic Center, Lake Placid, New York, USA",lat:44.2850,lng:-73.9858,
+  q:"Wer war der Trainer der Sieger?",a:"Herb Brooks",o:["Herb Brooks","Scotty Bowman","Viktor Tichonow","Mike Eruzione"],
+  facts:["Die USA schlugen die Sowjetunion 4:3 und holten zwei Tage später Gold gegen Finnland.","Herb Brooks war 1960 als Letzter aus dem US-Olympiateam gestrichen worden – das dann Gold gewann."]},
+ {y:2006,sport:"Fußball",title:"Zidanes letzter Auftritt",
+  story:"In seinem letzten Spiel als Profi sieht ein Superstar im WM-Finale nach einem Kopfstoß die Rote Karte. Seine Mannschaft verliert danach im Elfmeterschießen.",
+  place:"Olympiastadion, Berlin, Deutschland",lat:52.5147,lng:13.2395,
+  q:"Wen traf der Kopfstoß?",a:"Marco Materazzi",o:["Marco Materazzi","Fabio Cannavaro","Gianluigi Buffon","Andrea Pirlo"],
+  facts:["Italien wurde Weltmeister gegen Frankreich.","Trotz der Roten Karte wurde Zinédine Zidane zum besten Spieler des Turniers gewählt."]},
+ {y:2008,sport:"Olympia",title:"Acht auf einen Streich",
+  story:"Ein Schwimmer gewinnt bei denselben Sommerspielen seine achte Goldmedaille und bricht damit einen 36 Jahre alten Rekord.",
+  place:"Nationales Schwimmzentrum („Water Cube“), Peking, China",lat:39.9928,lng:116.3846,
+  q:"Wer gewann achtmal Gold?",a:"Michael Phelps",o:["Michael Phelps","Ryan Lochte","Ian Thorpe","Mark Spitz"],
+  facts:["Eines seiner Rennen gewann er mit nur einer Hundertstelsekunde Vorsprung.","Insgesamt holte Phelps in seiner Karriere 23 olympische Goldmedaillen."]},
+ {y:1996,sport:"Olympia",title:"Das Feuer mit zitternden Händen",
+  story:"Bei der Eröffnungsfeier entzündet überraschend ein ehemaliger Olympiasieger das olympische Feuer – mit sichtbar zitternden Händen. Das Stadion steht Kopf.",
+  place:"Centennial Olympic Stadium, Atlanta, USA",lat:33.7350,lng:-84.3897,
+  q:"Wer entzündete das Feuer?",a:"Muhammad Ali",o:["Muhammad Ali","Carl Lewis","Evander Holyfield","Michael Johnson"],
+  facts:["Ali hatte 1960 in Rom – damals noch als Cassius Clay – olympisches Gold im Boxen gewonnen.","Das Zittern kam von seiner Parkinson-Erkrankung."]},
+ {y:2024,sport:"Olympia",title:"Die Übergabe an LA",
+  story:"Bei einer Schlussfeier seilt sich ein Hollywoodstar vom Stadiondach ab und übernimmt die olympische Flagge für die nächsten Sommerspiele.",
+  place:"Stade de France, Saint-Denis bei Paris, Frankreich",lat:48.9245,lng:2.3602,
+  q:"Wer holte die Flagge ab?",a:"Tom Cruise",o:["Tom Cruise","Brad Pitt","Keanu Reeves","Dwayne Johnson"],
+  facts:["In einem vorab gedrehten Film sprang Cruise danach mit dem Fallschirm über dem Hollywood-Schild ab.","Gleichzeitig traten in Long Beach Billie Eilish, Snoop Dogg und die Red Hot Chili Peppers auf."]}
+];
+// Aufwärmen bis 31. Oktober: ein Spielzug pro Tag
+const WARMUP=[
+ {date:"2026-10-24",y:1972,sport:"Fußball",title:"Deutschlands erster EM-Titel",
+  story:"Eine Mannschaft, die für ihren eleganten Kombinationsfußball gefeiert wird, gewinnt ein EM-Finale mit 3:0 gegen die Sowjetunion.",
+  place:"Heysel-Stadion, Brüssel, Belgien",lat:50.8955,lng:4.3341,
+  q:"Wer traf im Finale zweimal?",a:"Gerd Müller",o:["Gerd Müller","Franz Beckenbauer","Günter Netzer","Jupp Heynckes"],
+  facts:["Viele halten diese Elf für die beste deutsche Nationalmannschaft aller Zeiten.","Zwei Jahre später wurde dasselbe Team im eigenen Land Weltmeister."],
+  h:{q:"Wie viele Länderspieltore erzielte der Torschütze in seiner Karriere?",a:68,u:"Tore",min:0,max:120,step:1,tol:40}},
+ {date:"2026-10-25",y:2001,sport:"Fußball",title:"Kahns Nacht von Mailand",
+  story:"Ein Champions-League-Finale geht ins Elfmeterschießen. Der Torwart einer Mannschaft hält drei Elfmeter.",
+  place:"San Siro, Mailand, Italien",lat:45.4781,lng:9.1240,
+  q:"Wer war der Held im Tor?",a:"Oliver Kahn",o:["Oliver Kahn","Jens Lehmann","Manuel Neuer","Sepp Maier"],
+  facts:["Der FC Bayern München besiegte den FC Valencia.","Es war der erste Titel in der Königsklasse für die Bayern seit 1976."],
+  h:{q:"Wie alt war der Torwart bei diesem Finale?",a:31,u:"Jahre",min:18,max:45,step:1,tol:10}},
+ {date:"2026-10-26",y:2007,sport:"NFL",title:"Die NFL kommt nach Europa",
+  story:"Zum ersten Mal findet ein reguläres NFL-Spiel außerhalb Nordamerikas statt. Es regnet in Strömen, der Rasen wird zur Schlammwüste, und am Ende steht ein knappes 13:10.",
+  place:"Wembley-Stadion, London, England",lat:51.5560,lng:-0.2796,
+  q:"Welches Team gewann das Spiel?",a:"New York Giants",o:["New York Giants","Miami Dolphins","New England Patriots","New York Jets"],
+  facts:["Die Giants schlugen die Miami Dolphins.","Am Ende dieser Saison gewannen die Giants sogar den Super Bowl – gegen die bis dahin ungeschlagenen Patriots."],
+  h:{q:"Wie viele Zuschauer kamen ungefähr?",a:81000,u:"Zuschauer",min:20000,max:120000,step:1000,tol:40000}},
+ {date:"2026-10-27",y:1969,sport:"NFL",title:"Joe Namaths Garantie",
+  story:"Ein großer Außenseiter tritt im dritten Super Bowl an. Sein Quarterback garantiert schon Tage vorher öffentlich den Sieg – und hält Wort.",
+  place:"Orange Bowl, Miami, Florida, USA",lat:25.7780,lng:-80.2197,
+  q:"Wer gab die Siegesgarantie ab?",a:"Joe Namath",o:["Joe Namath","Johnny Unitas","Bart Starr","Earl Morrall"],
+  facts:["Die New York Jets schlugen die Baltimore Colts – der erste Super-Bowl-Sieg eines Teams aus der AFL.","Namath wurde zum wertvollsten Spieler des Super Bowls gewählt."],
+  h:{q:"Wie viele Punkte erzielten die Sieger?",a:16,u:"Punkte",min:0,max:50,step:1,tol:15}},
+ {date:"2026-10-28",y:2022,sport:"European League of Football",title:"Die Vikings erobern Europa",
+  story:"Ein Team aus einer Hauptstadt spielt seine allererste Saison in einer neuen europäischen Profiliga – und holt gleich den Titel. Das Finale steigt sogar im eigenen Land.",
+  place:"Wörthersee-Stadion, Klagenfurt, Österreich",lat:46.6085,lng:14.2774,
+  q:"Welches Team wurde Meister?",a:"Vienna Vikings",o:["Vienna Vikings","Raiders Tirol","Hamburg Sea Devils","Frankfurt Galaxy"],
+  facts:["Im Finale schlugen die Vienna Vikings die Hamburg Sea Devils.","Die European League of Football war 2021 mit acht Teams gestartet."],
+  h:{q:"Wie viele Teams spielten in dieser Saison in der Liga?",a:12,u:"Teams",min:2,max:24,step:1,tol:8}},
+ {date:"2026-10-29",y:2000,sport:"NFL",title:"Das Music City Miracle",
+  story:"Ein Playoff-Spiel scheint verloren. Beim letzten Kickoff wirft ein Spieler den Ball quer über das Feld zu einem Mitspieler – der läuft bis in die Endzone.",
+  place:"Adelphia Coliseum, Nashville, Tennessee, USA",lat:36.1665,lng:-86.7713,
+  q:"Wer trug den Ball in die Endzone?",a:"Kevin Dyson",o:["Kevin Dyson","Frank Wycheck","Steve McNair","Eddie George"],
+  facts:["Die Tennessee Titans schlugen die Buffalo Bills 22:16.","Ob der Querpass wirklich nicht nach vorn ging, prüften die Schiedsrichter per Videobeweis."],
+  h:{q:"Wie viele Sekunden waren beim Kickoff noch zu spielen?",a:16,u:"Sekunden",min:0,max:60,step:1,tol:20}},
+ {date:"2026-10-30",y:2022,sport:"NFL",title:"Die NFL in München",
+  story:"Zum ersten Mal findet ein reguläres NFL-Spiel in diesem Land statt. Ein Quarterback-Superstar in seiner letzten Saison gewinnt knapp mit 21:16.",
+  place:"Allianz Arena, München, Deutschland",lat:48.2188,lng:11.6247,
+  q:"Welcher Quarterback gewann das Spiel?",a:"Tom Brady",o:["Tom Brady","Geno Smith","Patrick Mahomes","Aaron Rodgers"],
+  facts:["Die Tampa Bay Buccaneers schlugen die Seattle Seahawks.","Ein Jahr später folgten zwei NFL-Spiele in Frankfurt."],
+  h:{q:"Wie viele Zuschauer waren im Stadion?",a:70000,u:"Zuschauer",min:20000,max:120000,step:1000,tol:30000}},
+ {date:"2026-10-31",y:2022,sport:"NFL",title:"13 Sekunden",
+  story:"In einem Playoff-Krimi gehen die Gäste mit 13 Sekunden auf der Uhr in Führung. Das reicht dem Heimteam noch zum Ausgleich – und in der Verlängerung zum Sieg.",
+  place:"Arrowhead Stadium, Kansas City, Missouri, USA",lat:39.0489,lng:-94.4839,
+  q:"Wer warf den Sieg-Touchdown in der Verlängerung?",a:"Patrick Mahomes",o:["Patrick Mahomes","Josh Allen","Travis Kelce","Jalen Hurts"],
+  facts:["In den letzten knapp zwei Minuten der regulären Spielzeit fielen insgesamt 25 Punkte.","Danach änderte die NFL die Overtime-Regel für die Playoffs: Seitdem bekommen beide Teams den Ball."],
+  h:{q:"Wie viele Punkte erzielten die Kansas City Chiefs?",a:42,u:"Punkte",min:0,max:70,step:1,tol:25}}
+];
+
+// 4th Down: Schätzfragen (gleiche Reihenfolge wie EVENTS)
+const HOW=[
+ {q:"Wie viele Spielerinnen oder Spieler pro Team stehen beim olympischen Flag Football gleichzeitig auf dem Feld?",a:5,u:"pro Team",min:1,max:15,step:1,tol:5},
+ {q:"Wie alt war der Sieger bei diesen Spielen?",a:23,u:"Jahre",min:15,max:45,step:1,tol:10},
+ {q:"Wie viele Grad unter null hatte es beim Anpfiff ungefähr?",a:25,u:"Grad minus",min:0,max:50,step:1,tol:15},
+ {q:"Wie viele Tore fielen im Finale insgesamt?",a:5,u:"Tore",min:0,max:12,step:1,tol:4},
+ {q:"Wie oft bekam sie bei diesen Spielen die Note 10,0?",a:7,u:"Mal",min:1,max:15,step:1,tol:6},
+ {q:"Wie viele Punkte erzielten die Sieger in diesem Spiel?",a:28,u:"Punkte",min:0,max:60,step:1,tol:20},
+ {q:"Wie alt war der Sieger bei diesem Rennen?",a:22,u:"Jahre",min:15,max:45,step:1,tol:10},
+ {q:"Wie viele Zuschauer fasste das Stadion damals ungefähr?",a:100000,u:"Zuschauer",min:10000,max:200000,step:5000,tol:60000},
+ {q:"Wie viele Spiele in Folge hatte der Verlierer in dieser Saison davor gewonnen?",a:18,u:"Spiele",min:0,max:25,step:1,tol:10},
+ {q:"Wie viele Spiele bestritt das Team bei diesem Turnier?",a:8,u:"Spiele",min:1,max:15,step:1,tol:6},
+ {q:"In welcher Minute fiel das umstrittene Tor?",a:101,u:". Minute",min:90,max:120,step:1,tol:15},
+ {q:"In wie vielen Sekunden lief er die 100 Meter?",a:9.69,u:"Sekunden",min:9,max:11,step:0.01,tol:0.6},
+ {q:"Wie viele Punkte erzielten die Sieger in diesem Spiel?",a:13,u:"Punkte",min:0,max:50,step:1,tol:15},
+ {q:"Wie alt war der Publikumsliebling bei diesen Spielen?",a:24,u:"Jahre",min:15,max:45,step:1,tol:10},
+ {q:"Wie alt war der Läufer bei seinem Triple?",a:29,u:"Jahre",min:15,max:45,step:1,tol:10},
+ {q:"Wie alt war der Torschütze?",a:22,u:"Jahre",min:15,max:45,step:1,tol:10},
+ {q:"Wie alt war der Schwimmer bei diesen Spielen?",a:22,u:"Jahre",min:12,max:40,step:1,tol:10},
+ {q:"Wie viele Punkte fielen in diesem Super Bowl insgesamt?",a:74,u:"Punkte",min:0,max:120,step:1,tol:40},
+ {q:"Wie alt war der Sieger bei diesem Marathon?",a:28,u:"Jahre",min:15,max:50,step:1,tol:10},
+ {q:"Wie viele Tage nach dem Sturz gewann er sein erstes Gold?",a:3,u:"Tage",min:1,max:14,step:1,tol:5},
+ {q:"Wie alt war der Torschütze bei diesem Spiel?",a:25,u:"Jahre",min:15,max:45,step:1,tol:10},
+ {q:"In wie vielen Sekunden lief sie die 400 Meter?",a:49.11,u:"Sekunden",min:45,max:60,step:0.01,tol:4},
+ {q:"Wie viele Punkte erzielte das siegreiche Team am Ende?",a:34,u:"Punkte",min:0,max:60,step:1,tol:20},
+ {q:"Wie weit sprang er?",a:8.9,u:"Meter",min:7,max:10,step:0.01,tol:1},
+ {q:"Wie alt war die Athletin bei diesen Spielen?",a:21,u:"Jahre",min:15,max:45,step:1,tol:10},
+ {q:"Wie viele Tore fielen in diesem Spiel insgesamt?",a:7,u:"Tore",min:0,max:15,step:1,tol:6},
+ {q:"In welcher Minute sah der Superstar Rot?",a:110,u:". Minute",min:90,max:120,step:1,tol:15},
+ {q:"Wie alt war der Schwimmer bei diesen Spielen?",a:23,u:"Jahre",min:12,max:40,step:1,tol:10},
+ {q:"Wie alt war der Mann, der das Feuer entzündete?",a:54,u:"Jahre",min:20,max:80,step:1,tol:15},
+ {q:"Wie alt war der Hollywoodstar bei diesem Stunt?",a:62,u:"Jahre",min:30,max:90,step:1,tol:15}
+];
+EVENTS.forEach((e,i)=>e.h=HOW[i]);
+
+// ===================== Grundlagen =====================
+const MON=["Jänner","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+const WD=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];
+const pad=n=>String(n).padStart(2,"0");
+const keyOf=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmtTime=s=>`${Math.floor(s/60)}:${pad(s%60)}`;
+const fmtN=n=>n.toLocaleString("de-DE");
+function rng(seed){let h=1779033703^seed.length;for(const ch of seed){h=Math.imul(h^ch.charCodeAt(0),3432918353);h=h<<13|h>>>19;}
+  return function(){h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);h^=h>>>16;return (h>>>0)/4294967296;};}
+function shuffle(arr,seed){const r=rng(seed),a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),1900);}
+function haversine(a,b){const R=6371,t=Math.PI/180;const dLat=(b.lat-a.lat)*t,dLng=(b.lng-a.lng)*t;
+  const x=Math.sin(dLat/2)**2+Math.cos(a.lat*t)*Math.cos(b.lat*t)*Math.sin(dLng/2)**2;return 2*R*Math.asin(Math.sqrt(x));}
+
+const YMIN=1890,YMAX=2026;
+const scoreYear=diff=>Math.max(0,100-8*diff);
+const scoreMap=km=>Math.round(100*Math.exp(-km/1500));
+const scoreWho=tries=>tries===1?100:tries===2?70:tries===3?40:0;
+const scoreHow=(g,h)=>Math.round(100*Math.max(0,1-Math.abs(g-h.a)/h.tol));
+const dec=h=>h.step<1?2:0;
+const fmtH=(v,h)=>v.toLocaleString("de-DE",{minimumFractionDigits:dec(h),maximumFractionDigits:dec(h)});
+const unitH=(v,h)=>h.u.startsWith(".")?`${fmtH(v,h)}${h.u}`:`${fmtH(v,h)} ${h.u}`;
+function label(p){return p>=350?"Touchdown + 2-Point-Conversion":p>=300?"Touchdown + Extrapunkt":p>=240?"Touchdown":p>=160?"Field Goal":p>=80?"Safety":"Punt";}
+const eY=d=>d===0?"🟩":d<=3?"🟨":d<=8?"🟧":"🟥";
+const eM=km=>km<250?"🟩":km<1000?"🟨":km<3000?"🟧":"🟥";
+const eW=t=>t===1?"🟩":t===2?"🟨":t===3?"🟧":"🟥";
+const eH=sc=>sc>=90?"🟩":sc>=60?"🟨":sc>=25?"🟧":"🟥";
+
+function eventFor(dateKey){
+  if(dateKey.slice(0,7)!=="2026-11")return null;
+  return EVENTS[(+dateKey.slice(8)-1)%EVENTS.length];
+}
+
+// ===================== Speicher =====================
+const LKEY="daily-huddle-v3";
+function lload(){try{return JSON.parse(localStorage.getItem(LKEY))||{}}catch(e){return{}}}
+const local=lload();local.res=local.res||{};local.start=local.start||{};
+try{const old=JSON.parse(localStorage.getItem("daily-huddle-v2"))||JSON.parse(localStorage.getItem("daily-huddle-v1"));if(old&&!local.nick&&old.nick){local.nick=old.nick;local.num=old.num||"";}}catch(e){}
+function lsave(){try{localStorage.setItem(LKEY,JSON.stringify(local))}catch(e){}}
+
+const now=new Date();const todayKey=keyOf(now);const ym=todayKey.slice(0,7);
+const cfg=MONTHS_CFG[ym];
+
+$("jerseyNum").textContent=now.getDate();
+$("dateLine").textContent=`${WD[now.getDay()]}, ${now.getDate()}. ${MON[now.getMonth()]}`;
+if(cfg)$("motto").textContent=`${MON[now.getMonth()]}: ${cfg.motto}`;
+$("monthLabel").textContent=cfg?`${MON[now.getMonth()]}: ${cfg.motto}`:`Testlauf ${MON[now.getMonth()]}`;
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));
+  ["play","today","month"].forEach(v=>$("v-"+v).hidden=v!==b.dataset.v);
+  if(b.dataset.v!=="play")loadBoard();
+});
+
+// ===================== Spiel =====================
+let G=null; // aktuelles Spiel
+function startGame(ev,opts){
+  // opts: {date, ranked, shareDate}
+  M=null;
+  G={ev,...opts,start:Date.now(),yearGuess:1980,guess:null,tries:0,wrong:new Set(),parts:{}};
+  if(opts.ranked){local.start[opts.date]=local.start[opts.date]||Date.now();G.start=local.start[opts.date];lsave();}
+  const area=$("playArea");
+  area.innerHTML=`
+    ${opts.note?`<div class="banner">${opts.note}</div>`:""}
+    <div class="play"><p class="kick">${esc(ev.sport)}</p><h3>Welcher Moment ist gesucht?</h3><p class="story">${esc(ev.story)}</p></div>
+    <section class="step" id="s1"><h4><span class="dn">1st Down</span>Wann war das?</h4>
+      <p class="rule">100 Punkte für das genaue Jahr, pro Jahr daneben 8 weniger.</p>
+      <div class="yearpick"><button class="round" id="ym" aria-label="Ein Jahr früher">−</button><output id="yo">1980</output><button class="round" id="yp" aria-label="Ein Jahr später">+</button></div>
+      <input type="range" id="yr" min="${YMIN}" max="${YMAX}" value="1980" aria-label="Jahr wählen">
+      <button class="btn" id="yb">Jahr bestätigen</button><div class="fb" id="f1" hidden></div></section>
+    <section class="step" id="s2" hidden><h4><span class="dn">2nd Down</span>Wo war das?</h4>
+      <p class="rule">Es zählt nicht nur das Land: Gewertet wird die Entfernung zwischen deinem Pin und dem genauen Ort. Je näher, desto mehr Punkte – bis zu 100.</p>
+      <p class="maphint" id="mh">Tippe auf die Karte, um deinen Pin zu setzen. Ziehen zum Verschieben, mit zwei Fingern oder den Tasten zoomen. Beim Reinzoomen erscheinen Flüsse, Seen und Städte – ohne Namen.</p>
+      <div class="mapbox" id="mapbox"><svg id="map" role="img" aria-label="Weltkarte"></svg><div class="chip" id="chip"></div>
+        <div class="zoom"><button id="zi" aria-label="Hineinzoomen">+</button><button id="zo" aria-label="Herauszoomen">−</button><button id="zr" aria-label="Ganze Welt zeigen">⟲</button></div></div>
+      <div class="legend" id="lg" hidden><span><i style="background:var(--gold)"></i>Dein Tipp</span><span><i style="background:var(--bad)"></i>Tatsächlicher Ort</span></div>
+      <button class="btn" id="mb" disabled>Ort bestätigen</button><div class="fb" id="f2" hidden></div></section>
+    <section class="step" id="s3" hidden><h4><span class="dn">3rd Down</span>Wer war’s?</h4>
+      <p class="rule">Drei Versuche: 100, 70 oder 40 Punkte.</p>
+      <p class="whoq">${esc(ev.q)}</p><div class="opts" id="opts"></div><div class="fb" id="f3" hidden></div></section>
+    <section class="step" id="s5" hidden><h4><span class="dn">4th Down</span>Wie viel? Schätz mal!</h4>
+      <p class="rule">Volltreffer gibt 100 Punkte – je weiter daneben, desto weniger.</p>
+      <p class="whoq">${esc(ev.h.q)}</p>
+      <div class="yearpick"><button class="round" id="hm" aria-label="Weniger">−</button><div style="text-align:center"><output id="ho"></output><div style="color:var(--muted);font-weight:600" id="hu"></div></div><button class="round" id="hp" aria-label="Mehr">+</button></div>
+      <input type="range" id="hr" min="${ev.h.min}" max="${ev.h.max}" step="${ev.h.step}" aria-label="Schätzung wählen">
+      <button class="btn" id="hb">Schätzung bestätigen</button><div class="fb" id="f5" hidden></div></section>
+    <section class="step" id="s4" hidden></section>`;
+  // Jahr
+  const yr=$("yr"),yo=$("yo");const setY=v=>{v=Math.max(YMIN,Math.min(YMAX,v));yr.value=v;yo.textContent=v;G.yearGuess=v;};
+  yr.oninput=()=>setY(+yr.value);$("ym").onclick=()=>setY(G.yearGuess-1);$("yp").onclick=()=>setY(G.yearGuess+1);
+  $("yb").onclick=()=>{
+    const diff=Math.abs(G.yearGuess-ev.y);G.parts.y=scoreYear(diff);G.yd=diff;
+    ["ym","yp","yb"].forEach(i=>$(i).disabled=true);yr.disabled=true;$("yb").hidden=true;
+    $("f1").innerHTML=`Es war <b>${ev.y}</b>. ${diff===0?"Auf das Jahr genau!":`Du lagst ${diff} ${diff===1?"Jahr":"Jahre"} daneben.`}<br><span class="pts">+${G.parts.y} Punkte</span>`;
+    $("f1").hidden=false;$("s1").classList.add("done");$("s2").hidden=false;initMap();
+    $("s2").scrollIntoView({behavior:"smooth",block:"start"});
+  };
+  $("mb").onclick=confirmMap;
+}
+
+// ---------- Karte ----------
+const ISO2="AFG:AF,ALB:AL,DZA:DZ,AGO:AO,ARG:AR,ARM:AM,AUS:AU,AUT:AT,AZE:AZ,BHS:BS,BGD:BD,BLR:BY,BEL:BE,BLZ:BZ,BEN:BJ,BTN:BT,BOL:BO,BIH:BA,BWA:BW,BRA:BR,BRN:BN,BGR:BG,BFA:BF,BDI:BI,KHM:KH,CMR:CM,CAN:CA,CAF:CF,TCD:TD,CHL:CL,CHN:CN,COL:CO,COG:CG,COD:CD,CRI:CR,CIV:CI,HRV:HR,CUB:CU,CYP:CY,CZE:CZ,DNK:DK,DJI:DJ,DOM:DO,ECU:EC,EGY:EG,SLV:SV,GNQ:GQ,ERI:ER,EST:EE,ETH:ET,FLK:FK,FJI:FJ,FIN:FI,FRA:FR,GUF:GF,GAB:GA,GMB:GM,GEO:GE,DEU:DE,GHA:GH,GRC:GR,GRL:GL,GTM:GT,GIN:GN,GNB:GW,GUY:GY,HTI:HT,HND:HN,HUN:HU,ISL:IS,IND:IN,IDN:ID,IRN:IR,IRQ:IQ,IRL:IE,ISR:IL,ITA:IT,JAM:JM,JPN:JP,JOR:JO,KAZ:KZ,KEN:KE,PRK:KP,KOR:KR,KWT:KW,KGZ:KG,LAO:LA,LVA:LV,LBN:LB,LSO:LS,LBR:LR,LBY:LY,LTU:LT,LUX:LU,MKD:MK,MDG:MG,MWI:MW,MYS:MY,MLI:ML,MRT:MR,MEX:MX,MDA:MD,MNG:MN,MNE:ME,MAR:MA,MOZ:MZ,MMR:MM,NAM:NA,NPL:NP,NLD:NL,NCL:NC,NZL:NZ,NIC:NI,NER:NE,NGA:NG,NOR:NO,OMN:OM,PAK:PK,PSE:PS,PAN:PA,PNG:PG,PRY:PY,PER:PE,PHL:PH,POL:PL,PRT:PT,PRI:PR,QAT:QA,ROU:RO,RUS:RU,RWA:RW,SAU:SA,SEN:SN,SRB:RS,SLE:SL,SVK:SK,SVN:SI,SLB:SB,SOM:SO,ZAF:ZA,SSD:SS,ESP:ES,LKA:LK,SDN:SD,SUR:SR,SWZ:SZ,SWE:SE,CHE:CH,SYR:SY,TWN:TW,TJK:TJ,TZA:TZ,THA:TH,TLS:TL,TGO:TG,TTO:TT,TUN:TN,TUR:TR,TKM:TM,UGA:UG,UKR:UA,ARE:AE,GBR:GB,USA:US,URY:UY,UZB:UZ,VUT:VU,VEN:VE,VNM:VN,ESH:EH,YEM:YE,ZMB:ZM,ZWE:ZW,ATF:TF,KOS:XK";
+const ISO=Object.fromEntries(ISO2.split(",").map(p=>p.split(":")));
+let regionNames=null;try{regionNames=new Intl.DisplayNames(["de"],{type:"region"});}catch(e){}
+function countryName(f){if(!f)return "Offenes Meer";const a2=ISO[f.id];if(a2&&regionNames){try{const n=regionNames.of(a2);if(n&&n!==a2)return n;}catch(e){}}return (f.properties&&f.properties.name)||"Unbekannt";}
+const MW=960,MH=700;let M=null;
+function initMap(){
+  if(M)return;
+  if(!window.d3||!window.topojson||!window.Datamap||!Datamap.prototype.worldTopo){
+    $("mapbox").innerHTML='<p class="maperr">Die Weltkarte konnte nicht geladen werden. Prüfe deine Internetverbindung und lade die Seite neu.</p>';return;}
+  const scale=MH/((84+58)*Math.PI/180);const worldW=2*Math.PI*scale;
+  const proj=d3.geo.equirectangular().scale(scale).translate([Math.PI*scale,84*Math.PI/180*scale]);
+  const path=d3.geo.path().projection(proj);
+  const svg=d3.select("#map").attr("viewBox",`0 0 ${MW} ${MH}`);
+  svg.append("rect").attr("class","sea").attr("width",MW).attr("height",MH);
+  const g=svg.append("g");
+  g.append("path").datum(d3.geo.graticule().step([30,30])()).attr("class","grat").attr("d",path);
+  const topo=Datamap.prototype.worldTopo,key=Object.keys(topo.objects)[0];
+  const feats=topojson.feature(topo,topo.objects[key]).features.filter(f=>f.id!=="ATA");
+  const lands=g.selectAll(".land").data(feats).enter().append("path").attr("class","land").attr("d",path);
+  const arc=g.append("path").attr("class","arc");const pins=g.append("g");
+  const lakesG=g.insert("g",".arc"),riversG=g.insert("g",".arc"),citiesG=g.insert("g",".arc");
+  const zoom=d3.behavior.zoom().scaleExtent([1,14]).on("zoom",()=>{
+    const s=d3.event.scale;let t=d3.event.translate;
+    t=[Math.min(0,Math.max(MW-worldW*s,t[0])),Math.min(0,Math.max(MH*(1-s),t[1]))];
+    zoom.translate(t);g.attr("transform",`translate(${t})scale(${s})`);drawPins();
+    if(s>=1.5)loadDetails();}).on("zoomend",updateDetails);
+  M={proj,path,svg,g,lands,arc,pins,zoom,worldW,locked:false,lakesG,riversG,citiesG,drawn:false};
+  if(DETAILS)drawDetails();
+  const home=()=>{zoom.scale(1).translate([MW/2-proj([12,0])[0],0]);svg.transition().duration(400).call(zoom.event);};
+  M.home=home;
+  svg.call(zoom).on("dblclick.zoom",null);
+  zoom.scale(1).translate([MW/2-proj([12,0])[0],0]);zoom.event(svg);
+  lands.on("mousemove",function(f){if(M.locked)return;lands.classed("hover",d=>d===f);if(!G.guess)$("chip").textContent=countryName(f);})
+       .on("mouseleave",function(){lands.classed("hover",false);if(!G.guess&&!M.locked)$("chip").textContent="";});
+  svg.on("click",function(){
+    if(M.locked||d3.event.defaultPrevented)return;
+    const ll=proj.invert(d3.mouse(g.node()));if(!ll||isNaN(ll[0])||Math.abs(ll[1])>85||Math.abs(ll[0])>180)return;
+    const tgt=d3.event.target;const f=tgt&&tgt.classList&&tgt.classList.contains("land")?d3.select(tgt).datum():null;
+    G.guess={lat:ll[1],lng:ll[0]};G.guessCountry=countryName(f);
+    lands.classed("sel",d=>d===f).classed("hover",false);
+    $("chip").textContent="📍 "+G.guessCountry;$("mb").disabled=false;drawPins();
+  });
+  $("zi").onclick=()=>zoomBy(2);$("zo").onclick=()=>zoomBy(.5);$("zr").onclick=home;
+}
+// ---------- Kartendetails (Natural Earth, ohne Namen) ----------
+const NE_BASES=["https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/","https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/","https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@master/geojson/"];
+let DETAILS=null,detailsLoading=false;
+async function neFetch(name){for(const b of NE_BASES){try{const r=await fetch(b+name);if(r.ok)return await r.json();}catch(e){}}return null;}
+async function loadDetails(){
+  if(DETAILS||detailsLoading)return;detailsLoading=true;
+  const [lakes,rivers,places]=await Promise.all([neFetch("ne_50m_lakes.geojson"),neFetch("ne_50m_rivers_lake_centerlines.geojson"),neFetch("ne_50m_populated_places_simple.geojson")]);
+  DETAILS={lakes:lakes?lakes.features:[],rivers:rivers?rivers.features:[],
+    places:places?places.features.filter(f=>f.geometry&&f.geometry.type==="Point").map(f=>{const p=f.properties||{};return{c:f.geometry.coordinates,r:+(p.scalerank??p.SCALERANK??p.min_zoom??6)};}):[]};
+  detailsLoading=false;if(M)drawDetails();
+}
+function drawDetails(){
+  if(!M||M.drawn||!DETAILS)return;M.drawn=true;
+  M.lakesG.selectAll("path").data(DETAILS.lakes).enter().append("path").attr("class","lake").attr("d",M.path);
+  M.riversG.selectAll("path").data(DETAILS.rivers).enter().append("path").attr("class","river").attr("d",M.path);
+  M.citiesG.selectAll("circle").data(DETAILS.places).enter().append("circle").attr("class","city")
+    .attr("cx",d=>M.proj(d.c)[0]).attr("cy",d=>M.proj(d.c)[1]);
+  updateDetails();
+}
+function updateDetails(){
+  if(!M||!M.drawn)return;const k=M.zoom.scale();
+  M.riversG.style("display",k>=1.5?null:"none");
+  const maxRank=k<2.5?-1:k<4?3:k<7?5:k<10?7:10;
+  M.citiesG.selectAll("circle").style("display",d=>d.r<=maxRank?null:"none").attr("r",2.6/k).attr("stroke-width",.8/k);
+}
+function zoomBy(f){const z=M.zoom,s0=z.scale(),s1=Math.max(1,Math.min(14,s0*f)),t0=z.translate(),c=[MW/2,MH/2];
+  z.scale(s1).translate([c[0]-(c[0]-t0[0])*s1/s0,c[1]-(c[1]-t0[1])*s1/s0]);M.svg.transition().duration(250).call(z.event);}
+function drawPins(){
+  if(!M)return;const k=M.zoom.scale();M.pins.selectAll("*").remove();
+  const add=(p,cls)=>{const xy=M.proj([p.lng,p.lat]);M.pins.append("circle").attr("class",cls).attr("cx",xy[0]).attr("cy",xy[1]).attr("r",9/k).attr("stroke-width",3/k);};
+  if(G&&G.guess)add(G.guess,"pin-guess");
+  if(M.locked)add({lat:G.ev.lat,lng:G.ev.lng},"pin-truth");
+}
+function confirmMap(){
+  if(!G.guess)return;M.locked=true;
+  const t={lat:G.ev.lat,lng:G.ev.lng};const km=Math.round(haversine(G.guess,t));G.km=km;G.parts.m=scoreMap(km);
+  M.arc.datum({type:"LineString",coordinates:[[G.guess.lng,G.guess.lat],[t.lng,t.lat]]}).attr("d",M.path);
+  drawPins();
+  const xy=[G.guess,t].map(p=>M.proj([p.lng,p.lat]));const xs=xy.map(p=>p[0]),ys=xy.map(p=>p[1]),pd=90;
+  const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const s=Math.max(1,Math.min(10,MW/(x1-x0+2*pd),MH/(y1-y0+2*pd)));
+  M.zoom.scale(s).translate([MW/2-(x0+x1)/2*s,MH/2-(y0+y1)/2*s]);M.svg.transition().duration(800).call(M.zoom.event);
+  $("mb").hidden=true;$("mh").hidden=true;$("lg").hidden=false;
+  $("f2").innerHTML=`Dein Tipp: ${esc(G.guessCountry)}. Du lagst <b>${fmtN(km)} km</b> daneben.<br><span class="pts">+${G.parts.m} Punkte</span>`;
+  $("f2").hidden=false;$("s2").classList.add("done");
+  $("s3").hidden=false;renderWho();setTimeout(()=>$("s3").scrollIntoView({behavior:"smooth",block:"start"}),850);
+}
+
+// ---------- Wer ----------
+function renderWho(){
+  const ev=G.ev,opts=shuffle(ev.o,(G.date||"x")+ev.a),done=G.parts.w!==undefined;
+  $("opts").innerHTML=opts.map(o=>`<button class="opt${G.wrong.has(o)?" wrong":""}${done&&o===ev.a?" right":""}" ${G.wrong.has(o)||done?"disabled":""}>${esc(o)}</button>`).join("");
+  $("opts").querySelectorAll(".opt").forEach((b,i)=>b.onclick=()=>pickWho(opts[i]));
+}
+function pickWho(o){
+  G.tries++;
+  if(o===G.ev.a){G.parts.w=scoreWho(G.tries);}
+  else{G.wrong.add(o);if(G.tries>=3)G.parts.w=0;}
+  if(G.parts.w===undefined){$("f3").innerHTML=G.tries===1?"Falsch – nächster Versuch für 70 Punkte.":"Wieder falsch – letzter Versuch für 40 Punkte.";$("f3").hidden=false;renderWho();return;}
+  renderWho();
+  $("f3").innerHTML=G.parts.w?`Richtig: <b>${esc(G.ev.a)}</b><br><span class="pts">+${G.parts.w} Punkte</span>`:`Gesucht war: <b>${esc(G.ev.a)}</b><br><span class="pts">+0 Punkte</span>`;
+  $("f3").hidden=false;$("s3").classList.add("done");startHow();
+}
+function startHow(){
+  const h=G.ev.h,hr=$("hr");const snap=v=>Math.round(Math.max(h.min,Math.min(h.max,v))/h.step)*h.step;
+  const setH=v=>{v=+snap(v).toFixed(dec(h));G.hGuess=v;hr.value=v;$("ho").textContent=fmtH(v,h);$("hu").textContent=h.u.replace(/^\.\s*/,"");};
+  setH((h.min+h.max)/2);
+  hr.oninput=()=>setH(+hr.value);$("hm").onclick=()=>setH(G.hGuess-h.step);$("hp").onclick=()=>setH(G.hGuess+h.step);
+  $("s5").hidden=false;setTimeout(()=>$("s5").scrollIntoView({behavior:"smooth",block:"start"}),300);
+  $("hb").onclick=()=>{
+    const sc=scoreHow(G.hGuess,h);G.parts.h=sc;G.hd=Math.abs(G.hGuess-h.a);
+    ["hm","hp","hb"].forEach(i=>$(i).disabled=true);hr.disabled=true;$("hb").hidden=true;
+    $("f5").innerHTML=`Richtig: <b>${unitH(h.a,h)}</b>. ${G.hd===0?"Volltreffer!":`Du lagst ${fmtH(+G.hd.toFixed(dec(h)),h)} daneben.`}<br><span class="pts">+${sc} Punkte</span>`;
+    $("f5").hidden=false;$("s5").classList.add("done");finishGame();
+  };
+}
+function finishGame(){
+  const p=G.parts.y+G.parts.m+G.parts.w+G.parts.h,s=Math.max(1,Math.round((Date.now()-G.start)/1000));
+  const res={p,y:G.parts.y,m:G.parts.m,w:G.parts.w,h:G.parts.h,s,yd:G.yd,km:G.km,wt:G.parts.w===100?1:G.parts.w===70?2:G.parts.w===40?3:4,hd:+G.hd.toFixed(dec(G.ev.h))};
+  if(G.ranked){local.res[G.date]=res;lsave();}
+  if(G.shareDate&&!G.ranked){local.test=local.test||{};if(!local.test[G.shareDate]){local.test[G.shareDate]=res;lsave();}}
+  const box=$("s4");box.hidden=false;box.innerHTML=revealHtml(G.ev,res,G.ranked||!!G.shareDate);
+  wireResult(res);
+  const dk=G.ranked?G.date:G.shareDate;if(dk&&(G.ranked||local.test[dk]===res))submitResult(dk,res);
+  setTimeout(()=>box.scrollIntoView({behavior:"smooth",block:"start"}),300);
+}
+function revealHtml(ev,res,shareable){
+  return `<div class="reveal"><h3>${esc(ev.title)}</h3><p class="where">${ev.y} in ${esc(ev.place)}</p>
+    <ul class="facts">${ev.facts.map(f=>`<li>${esc(f)}</li>`).join("")}</ul></div>
+    <div class="result"><div class="tot">${res.p} <small>/ 400 Punkte</small></div><div class="lab">${label(res.p)}</div>
+    <table><tr><td>📅 Wann</td><td>${res.y}</td></tr><tr><td>📍 Wo</td><td>${res.m}</td></tr><tr><td>👤 Wer</td><td>${res.w}</td></tr><tr><td>🔢 Wie viel</td><td>${res.h??0}</td></tr><tr><td>⏱️ Zeit</td><td>${fmtTime(res.s)}</td></tr></table>
+    ${shareable?'<p class="send" id="sendState"></p>':""}
+    <div class="row">${shareable?'<button class="btn" id="shareBtn">Ergebnis teilen</button>':""}<button class="btn ghost" id="toBoard">${shareable?"Ganze Wertung":"Zurück"}</button></div></div>
+    ${shareable?'<div class="mini" id="miniBoard"></div>':""}`;
+}
+function wireResult(res){
+  if($("shareBtn"))$("shareBtn").onclick=()=>share(res);
+  $("toBoard").onclick=()=>{if($("shareBtn"))document.querySelector('.tabs [data-v="today"]').click();else renderPlay();};
+}
+
+// ---------- Teilen ----------
+const normN=s=>String(s||"").trim().toLowerCase().replace(/\s+/g," ");
+function fnv(str){let h=2166136261;for(const ch of str){h^=ch.codePointAt(0);h=Math.imul(h,16777619)>>>0;}return h.toString(36);}
+const hashFor=(date,num,nick,y,m,w,h,s)=>fnv(`${date}|${num}|${normN(nick)}|${y}|${m}|${w}|${h}|${s}|studs2005`).slice(-5);
+async function share(res){
+  if(!local.nick){toast("Trag zuerst deinen Namen ein");openTrikot(()=>share(res));return;}
+  const sd=G.shareDate||G.date;const d=+sd.slice(8);
+  const text=`🏈 DAILY HUDDLE · ${d}. ${MON[+sd.slice(5,7)-1]}\n👤 ${local.num?"#"+local.num+" ":""}${local.nick}\n\n📅 ${eY(res.yd)} ${res.yd===0?"aufs Jahr genau":"±"+res.yd+" "+(res.yd===1?"Jahr":"Jahre")}\n📍 ${eM(res.km)} ${fmtN(res.km)} km\n👤 ${eW(res.wt)} ${res.wt===1?"sofort erkannt":res.wt===2?"im 2. Versuch":res.wt===3?"im 3. Versuch":"nicht erkannt"}\n🔢 ${eH(res.h)} ${res.hd===0?"Volltreffer":"±"+fmtH(res.hd,G.ev.h)+" "+G.ev.h.u.replace(/^\.\s*/,"")}\n\n🏆 ${res.p}/400 · ${label(res.p)}\n⏱️ ${fmtTime(res.s)}\n\nGreen Hearts can’t lose! 💚\n${GAME_URL}`;
+  if(navigator.share){try{await navigator.share({text});return;}catch(e){if(e&&e.name==="AbortError")return;}}
+  try{await navigator.clipboard.writeText(text);toast("Ergebnis kopiert");}catch(e){prompt("Zum Kopieren:",text);}
+}
+
+// ===================== Ansicht Rätsel =====================
+function renderPlay(){
+  const area=$("playArea");M=null;
+  const ev=eventFor(todayKey);
+  if(ev){
+    const r=local.res[todayKey];
+    if(r){
+      G={ev,date:todayKey,ranked:true};
+      area.innerHTML=`<p class="intro">Du hast den heutigen Spielzug schon gespielt. Morgen kommt der nächste.</p><section class="step" id="s4">${revealHtml(ev,r,true)}</section>`;
+      wireResult(r);submitResult(todayKey,r);addExtras(area);return;
+    }
+    startGame(ev,{date:todayKey,ranked:true,note:+todayKey.slice(8)===1&&cfg?cfg.intro:""});addExtras(area);return;
+  }
+  const start=new Date(2026,10,1);const days=Math.ceil((start-new Date(now.getFullYear(),now.getMonth(),now.getDate()))/864e5);
+  const w=days>0?WARMUP.find(x=>x.date===todayKey):null;
+  if(w){
+    const r=local.test&&local.test[todayKey];
+    const note=`Aufwärmen des Tages: Dein erstes Ergebnis zählt für die Aufwärm-Wertung. Offizieller Start ist am 1. November, noch ${days} ${days===1?"Tag":"Tage"}.`;
+    if(r){
+      G={ev:w,date:"warm"+todayKey,ranked:false,shareDate:todayKey};
+      area.innerHTML=`<div class="banner">${note}</div><p class="intro">Du hast das heutige Aufwärmen schon gespielt. Morgen kommt der nächste Spielzug.</p><section class="step" id="s4">${revealHtml(w,r,true)}</section>`;
+      wireResult(r);submitResult(todayKey,r);
+    }else startGame(w,{date:"warm"+todayKey,ranked:false,shareDate:todayKey,note});
+    addExtras(area,false);return;
+  }
+  area.innerHTML=days>0
+    ?`<p class="intro">Saisonstart ist am 1. November: Dann kommt jeden Tag ein neuer Spielzug mit vier Downs – wann, wo, wer und wie viel – zum Motto „Road to LA28“. Noch ${days} ${days===1?"Tag":"Tage"}.</p>`
+    :`<p class="intro">Das nächste Monatsmotto kommt bald. Bis dahin steht das Probetraining offen.</p>`;
+  addExtras(area,true);
+}
+function addExtras(area,pre){
+  const list=WARMUP.filter(x=>x.date<todayKey);
+  if(list.length){
+    const wrap=document.createElement("div");
+    wrap.innerHTML=`<p class="intro" style="margin-top:22px">${pre?"Probetraining":"Lust auf mehr? Spiel frühere Aufwärm-Spielzüge nach (zählt nicht für die Wertung)."}</p><div class="practice">${list.map(p=>`<button data-d="${p.date}"><b>${esc(p.sport)}</b><span>Aufwärmen vom ${+p.date.slice(8)}. ${MON[+p.date.slice(5,7)-1]}</span></button>`).join("")}</div>`;
+    area.appendChild(wrap);
+    wrap.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{
+      const p=WARMUP.find(x=>x.date===b.dataset.d);
+      startGame(p,{date:"practice"+p.date,ranked:false,shareDate:null,note:"Probetraining: zählt nicht für die Wertung."});
+      addExtras($("playArea"),false);window.scrollTo({top:0,behavior:"smooth"});});
+  }
+}
+// ===================== Wertung (Google-Tabelle) =====================
+async function submitResult(date,res){
+  local.sent=local.sent||{};const st=$("sendState");
+  if(local.sent[date]){if(st)st.textContent="✅ In der Wertung eingetragen";loadBoard();return;}
+  if(!apiReady())return;
+  if(!local.nick||!local.num){
+    if(st){st.innerHTML=`Trag dein Trikot ein, damit dein Ergebnis in die Wertung kommt.<button class="trikot" id="needTrikot">Trikot eintragen</button>`;
+      $("needTrikot").onclick=()=>openTrikot(()=>submitResult(date,res));}
+    return;}
+  if(st)st.textContent="⏳ Wird in die Wertung eingetragen …";
+  const body={d:date,num:local.num,n:local.nick,y:res.y,m:res.m,w:res.w,h:res.h,s:res.s,
+    c:hashFor(date,local.num,local.nick,res.y,res.m,res.w,res.h,res.s)};
+  try{
+    const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});
+    const j=await r.json();
+    if(j.ok||j.reason==="dup"){local.sent[date]=true;lsave();loadBoard(true);}
+    if(st)st.textContent=j.ok?"✅ In der Wertung eingetragen":j.reason==="dup"?`ℹ️ Für die Nummer ${local.num} gibt es heute schon ein Ergebnis – es zählt das erste.`:`⚠️ Nicht eingetragen: ${j.msg||"unbekannter Fehler"}`;
+  }catch(e){
+    if(st){st.innerHTML=`⚠️ Keine Verbindung zur Wertung.<button class="trikot" id="retrySend">Nochmal</button>`;$("retrySend").onclick=()=>submitResult(date,res);}
+  }
+}
+let BOARD={entries:[],at:null,err:null,loading:false};
+async function loadBoard(force){
+  if(!apiReady()){BOARD.err="notset";renderBoards();return;}
+  if(BOARD.loading)return;if(!force&&BOARD.at&&Date.now()-BOARD.at<30000){renderBoards();return;}
+  BOARD.loading=true;renderBoards();
+  try{const r=await fetch(`${API_URL}?month=${ym}`);const j=await r.json();BOARD.entries=j.entries||[];BOARD.at=Date.now();BOARD.err=null;}
+  catch(e){BOARD.err="net";}
+  BOARD.loading=false;renderBoards();
+}
+const nameOf=e=>`#${e.num} ${e.n}`;
+let selDay=null;
+function renderBoards(){
+  const stand=BOARD.loading?"Wird geladen …":BOARD.err==="notset"?"Die Wertung ist noch nicht verbunden.":BOARD.err==="net"?"Keine Verbindung zur Wertung.":BOARD.at?`Stand: ${pad(new Date(BOARD.at).getHours())}:${pad(new Date(BOARD.at).getMinutes())} Uhr`:"";
+  $("stand1").innerHTML=$("stand2").innerHTML=`${stand} <button class="trikot" onclick="loadBoard(true)" style="padding:2px 10px;margin-left:6px">↻ Aktualisieren</button>`;
+  const me=String(local.num||"");
+  const monthEntries=BOARD.entries.filter(e=>String(e.d).slice(0,7)===ym);
+  let days=[...new Set(monthEntries.map(e=>e.d))].sort().reverse();
+  if(!days.includes(todayKey))days.unshift(todayKey);
+  if(!selDay||!days.includes(selDay))selDay=todayKey;
+  const sel=$("daySel");
+  sel.innerHTML=days.map(d=>`<option value="${d}"${d===selDay?" selected":""}>${d===todayKey?"Heute":`${+d.slice(8)}. ${MON[+d.slice(5,7)-1]}`}</option>`).join("");
+  sel.onchange=()=>{selDay=sel.value;renderBoards();};
+  const dayList=monthEntries.filter(e=>e.d===selDay).sort((a,b)=>b.p-a.p||a.s-b.s);
+  $("todayBoard").innerHTML=dayList.length?`<ol class="lb">${dayList.map((e,i)=>`<li class="${String(e.num)===me?"me":""}"><span class="rk">${i+1}</span><span class="nm">${esc(nameOf(e))}<small>${label(e.p)}</small></span><span class="sc">${e.p}<small>${fmtTime(e.s)}</small></span></li>`).join("")}</ol>`
+    :`<div class="empty">${BOARD.loading?"Wird geladen …":"Für diesen Tag gibt es noch keine Ergebnisse."}</div>`;
+  const agg={};monthEntries.slice().sort((a,b)=>String(a.d).localeCompare(b.d)).forEach(e=>{const k=String(e.num);const a=agg[k]||(agg[k]={num:k,n:e.n,p:0,s:0,c:0,td:0});
+    a.n=e.n;a.p+=e.p;a.s+=e.s;a.c++;if(e.p>=240)a.td++;});
+  const month=Object.values(agg).sort((a,b)=>b.p-a.p||b.c-a.c||a.s-b.s);
+  renderMini();
+  $("monthBoard").innerHTML=month.length?`<ol class="lb">${month.map((e,i)=>`<li class="${e.num===me?"me":""}"><span class="rk">${i+1}</span><span class="nm">${esc(nameOf(e))}<small>${e.c} ${e.c===1?"Tag":"Tage"} gespielt, ${e.td} ${e.td===1?"Touchdown":"Touchdowns"}</small></span><span class="sc">${fmtN(e.p)}<small>Punkte</small></span></li>`).join("")}</ol>`
+    :`<div class="empty">${BOARD.loading?"Wird geladen …":"Das MVP-Race startet mit dem ersten Ergebnis des Monats."}</div>`;
+}
+
+function renderMini(){
+  const box=$("miniBoard");if(!box)return;
+  if(BOARD.err){box.innerHTML="";return;}
+  const me=String(local.num||"");
+  const list=BOARD.entries.filter(e=>e.d===todayKey).sort((a,b)=>b.p-a.p||a.s-b.s);
+  if(!list.length){box.innerHTML=BOARD.loading?"":`<h5>🏆 Tageswertung</h5><div class="empty">Noch keine Ergebnisse heute.</div>`;return;}
+  const row=(e,i)=>`<li class="${String(e.num)===me?"me":""}"><span class="rk">${i+1}</span><span class="nm">${esc(nameOf(e))}<small>${label(e.p)}</small></span><span class="sc">${e.p}<small>${fmtTime(e.s)}</small></span></li>`;
+  const top=list.slice(0,5).map(row).join("");const mi=list.findIndex(e=>String(e.num)===me);
+  box.innerHTML=`<h5>🏆 Tageswertung</h5><ol class="lb">${top}</ol>${mi>=5?`<p class="gap">…</p><ol class="lb">${row(list[mi],mi)}</ol>`:""}`;
+}
+
+// ===================== Trikot =====================
+let afterTrikot=null;
+function openTrikot(then){afterTrikot=then||null;$("nickIn").value=local.nick||"";$("numIn").value=local.num||"";$("dlg").showModal();}
+$("trikotBtn").onclick=()=>openTrikot();
+$("dlgCancel").onclick=()=>{afterTrikot=null;$("dlg").close();};
+$("dlgSave").onclick=()=>{
+  const nick=$("nickIn").value.replace(/[^\p{L}\p{N} .'’-]/gu,"").trim().slice(0,18),num=$("numIn").value.replace(/\D/g,"").slice(0,2);
+  if(!nick){$("nickIn").focus();return;}
+  if(!num){$("numIn").focus();toast("Bitte gib deine Rückennummer ein");return;}
+  if(local.num&&String(+num)!==String(local.num)&&Object.keys(local.sent||{}).length&&!confirm("Achtung: Deine Rückennummer ist deine Erkennung in der Wertung. Mit einer neuen Nummer startest du eine neue Wertung. Trotzdem ändern?"))return;
+  local.nick=nick;local.num=String(+num);lsave();$("dlg").close();updateTrikotBtn();toast("Trikot gespeichert");
+  if(afterTrikot){const f=afterTrikot;afterTrikot=null;f();}
+};
+function updateTrikotBtn(){$("trikotBtn").textContent=local.nick?`${local.num?"#"+local.num+" ":""}${local.nick}`:"Dein Trikot";}
+
+// ===================== Start =====================
+renderPlay();updateTrikotBtn();renderBoards();
+</script>
+</body>
+</html>
